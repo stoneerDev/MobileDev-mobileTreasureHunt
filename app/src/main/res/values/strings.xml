@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">A6_mobile_treasure_hunt</string>
+    <string name="final_location_name">Space Needle</string>
+    <string name="final_location_description">This is the Final Location Description</string>
+    <string name="clue1_location_name">Seattle Great Wheel</string>
+    <string name="clue1_location_description">This is the Clue Location Description</string>
 </resources>

@@ -218,7 +218,7 @@ fun ClueScreen(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-
+                    
                     //Null Safe location display
                     treasureHuntUiState.currentLocation?.let {
                         Text(
@@ -228,6 +228,9 @@ fun ClueScreen(
                             lineHeight = 36.sp,
                             textAlign = TextAlign.Center,
                             text = "Latitude: ${treasureHuntUiState.currentLocation?.latitude}, Longitude: ${treasureHuntUiState.currentLocation?.longitude}"
+                        )
+                        Text(
+                            text = "Distance: ${treasureHuntUiState.currentDistance}"
                         )
 
                     } ?:
