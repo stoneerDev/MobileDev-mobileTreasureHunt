@@ -12,15 +12,27 @@ object TreasureHuntData {
     val finalLocation = TreasureHuntLocation(
         locationNameId = R.string.final_location_name,
         locationTextId = R.string.final_location_description,
+        locationHintId = R.string.blank,
         latitude = 47.6205099, //Space Needle for Now
         longitude = -122.3518523
     )
 
-    val clue1Location = TreasureHuntLocation(
-    locationNameId = R.string.clue1_location_name,
-    locationTextId = R.string.clue1_location_description,
-    latitude = 47.6061378, //Seattle Great Wheel for Now
-    longitude = -122.3450995
+    val clueList = listOf(
+        TreasureHuntLocation(
+            locationNameId = R.string.clue1_location_name,
+            locationTextId = R.string.clue1_location_description,
+            locationHintId = R.string.clue1_location_hint,
+            latitude = 47.6061378, //Seattle Great Wheel for Now
+            longitude = -122.3450995
+        ),
+        TreasureHuntLocation(
+            locationNameId = R.string.clue2_location_name,
+            locationTextId = R.string.clue2_location_description,
+            locationHintId = R.string.clue2_location_hint,
+            latitude = 47.6510664, //The Fremont Troll for Now
+            longitude = -122.3500737
+        )
     )
+
 
 }

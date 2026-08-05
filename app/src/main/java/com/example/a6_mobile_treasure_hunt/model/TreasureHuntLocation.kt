@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 data class TreasureHuntLocation(
     @StringRes val locationNameId: Int,
     @StringRes val locationTextId: Int,
+    @StringRes val locationHintId: Int,
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
 

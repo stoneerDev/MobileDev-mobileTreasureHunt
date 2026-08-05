@@ -7,6 +7,8 @@ data class TreasureHuntUiState(
     val currentLocation: Location? = null,
     val permissionGranted: Boolean = false,
     val finalLocation: TreasureHuntLocation = TreasureHuntData.finalLocation,
-    val clueLocation: TreasureHuntLocation = TreasureHuntData.clue1Location,
-    val currentDistance: Double = Double.POSITIVE_INFINITY
+    val clueList: List<TreasureHuntLocation> = TreasureHuntData.clueList,
+    val clueIndex: Int = 0,
+    val currentDistance: Double = Double.POSITIVE_INFINITY,
+    val onLastClue: Boolean = false
 )

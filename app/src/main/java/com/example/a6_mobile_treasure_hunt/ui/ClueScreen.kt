@@ -52,7 +52,9 @@ import com.example.a6_mobile_treasure_hunt.ui.theme.A6_mobile_treasure_huntTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ClueScreen(
-    treasureHuntViewModel: TreasureHuntViewModel = viewModel()
+    treasureHuntViewModel: TreasureHuntViewModel = viewModel(),
+    onFoundItClick: () -> Unit,
+    onQuitClick: () -> Unit
 ) {
 
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
@@ -66,7 +68,7 @@ fun ClueScreen(
                 ),
                 title = {
                     Text(
-                        text = "Example Clue",
+                        text = "Clue ${treasureHuntUiState.clueIndex}",
                         fontWeight = FontWeight.Bold,
                         fontSize = 36.sp
                     )
@@ -94,7 +96,7 @@ fun ClueScreen(
                         ) {
 
                         Button(
-                            onClick = { }
+                            onClick = onQuitClick
 
                         ) {
                             Text(
@@ -102,7 +104,7 @@ fun ClueScreen(
                             )
                         }
                         Button(
-                            onClick = { treasureHuntViewModel.getNewLocation()}
+                            onClick = onFoundItClick
 
                         ) {
                             Text(
@@ -110,7 +112,7 @@ fun ClueScreen(
                             )
                         }
                         Button(
-                            onClick = { }
+                            onClick = { treasureHuntViewModel.getNewLocation() }
 
                         ) {
                             Text(
@@ -218,7 +220,7 @@ fun ClueScreen(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    
+
                     //Null Safe location display
                     treasureHuntUiState.currentLocation?.let {
                         Text(
@@ -256,10 +258,3 @@ fun ClueScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun MobileTreasureHuntPreview() {
-    A6_mobile_treasure_huntTheme {
-        MobileTreasureHuntApp()
-    }
-}

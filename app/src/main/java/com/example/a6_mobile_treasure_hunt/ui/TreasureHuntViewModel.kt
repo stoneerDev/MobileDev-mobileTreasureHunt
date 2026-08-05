@@ -70,7 +70,6 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
         }
     }
     //REF: Location Codelab Haversine & https://gist.github.com/jferrao/cb44d09da234698a7feee68ca895f491
-
     fun calculateHaversine(startLat: Double, startLong: Double, endLat: Double, endLong: Double): Double {
         val latDist = Math.toRadians(endLat - startLat)
         val longDist = Math.toRadians(endLong - startLong)
@@ -85,6 +84,26 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
         return EARTH_RADIUS_KM * c * 0.621371192
     }
 
+    fun startTimer() {
+        //TODO
+    }
+
+    fun pauseTimer() {
+        //TODO
+    }
+
+    fun checkLocation(): Boolean {
+        //TODO
+        return true
+    }
+
+    fun resetGame() {
+        //TODO
+    }
+
+    fun advanceClues() {
+
+    }
 
 
 }
