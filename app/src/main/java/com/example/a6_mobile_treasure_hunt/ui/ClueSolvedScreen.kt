@@ -53,6 +53,7 @@ import com.example.a6_mobile_treasure_hunt.ui.theme.A6_mobile_treasure_huntTheme
 @Composable
 fun ClueSolvedScreen(
     treasureHuntViewModel: TreasureHuntViewModel = viewModel(),
+    elapsedTime: Long,
     onContinueClick: () -> Unit,
     onQuitClick: () -> Unit
 ) {
@@ -68,7 +69,7 @@ fun ClueSolvedScreen(
                 ),
                 title = {
                     Text(
-                        text = "Example Clue",
+                        text = "Clue ${treasureHuntUiState.locationIndex+1} Solved!",
                         fontWeight = FontWeight.Bold,
                         fontSize = 36.sp
                     )
@@ -136,35 +137,34 @@ fun ClueSolvedScreen(
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(16.dp),
+                        .padding(16.dp)
+                        .align(Alignment.TopStart),
                     fontSize = 24.sp,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.Center,
-                    text = "Clue Title"
+                    text = stringResource(
+                        treasureHuntUiState
+                            .locationList[treasureHuntUiState.locationIndex]
+                            .locationNameId
+                    )
+
+                )
+
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.CenterStart),
+                    fontSize = 18.sp,
+                    lineHeight = 36.sp,
+                    textAlign = TextAlign.Start,
+                    text = stringResource(
+                        treasureHuntUiState
+                            .locationList[treasureHuntUiState.locationIndex]
+                            .locationTextId
+                    )
 
                 )
             }
-
-
-                Box(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .fillMaxWidth(),
-                        //.border(width = 2.dp,
-                        //    color = colorScheme.onPrimaryContainer,
-                        //shape = RoundedCornerShape(16.dp)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(16.dp),
-                        fontSize = 24.sp,
-                        lineHeight = 36.sp,
-                        textAlign = TextAlign.Center,
-                        text = "Clue Detail"
-                    )
-
-                }
 
 
 

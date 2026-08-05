@@ -41,6 +41,7 @@ import com.example.a6_mobile_treasure_hunt.R
 @Composable
 fun TreasureHuntCompleteScreen(
     treasureHuntViewModel: TreasureHuntViewModel = viewModel(),
+    elapsedTime: Long,
     onHomeClick: () -> Unit
 ) {
 
@@ -119,27 +120,45 @@ fun TreasureHuntCompleteScreen(
 
                 )
             }
-
-
-                Box(
+            Box(
+                modifier = Modifier
+                    .height(200.dp)
+                    .fillMaxWidth(),
+                //.border(width = 2.dp,
+                //    color = colorScheme.onPrimaryContainer,
+                //    shape = RoundedCornerShape(16.dp)),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Text(
                     modifier = Modifier
-                        .height(200.dp)
-                        .fillMaxWidth()
-                        .border(width = 2.dp,
-                            color = Color.Black,
-                            shape = RoundedCornerShape(16.dp)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(16.dp),
-                        fontSize = 24.sp,
-                        lineHeight = 36.sp,
-                        textAlign = TextAlign.Center,
-                        text = "Clue Hint"
+                        .padding(16.dp)
+                        .align(Alignment.TopStart),
+                    fontSize = 24.sp,
+                    lineHeight = 36.sp,
+                    textAlign = TextAlign.Center,
+                    text = stringResource(
+                        treasureHuntUiState
+                            .locationList[treasureHuntUiState.locationIndex]
+                            .locationNameId
                     )
 
-                }
+                )
+
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.CenterStart),
+                    fontSize = 18.sp,
+                    lineHeight = 36.sp,
+                    textAlign = TextAlign.Start,
+                    text = stringResource(
+                        treasureHuntUiState
+                            .locationList[treasureHuntUiState.locationIndex]
+                            .locationTextId
+                    )
+
+                )
+            }
 
 
 

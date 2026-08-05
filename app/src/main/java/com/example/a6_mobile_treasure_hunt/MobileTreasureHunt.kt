@@ -1,6 +1,7 @@
 package com.example.a6_mobile_treasure_hunt
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,6 +33,8 @@ fun MobileTreasureHuntApp(
     //Set up Navigation REF: Assignment 5 - Building a multiscreen app II
     val navController: NavHostController = rememberNavController()
 
+    val elapsedTime by treasureHuntViewModel.elapsedTime.collectAsState()
+
     NavHost(
         navController = navController,
         startDestination = MobileTreasureHuntScreens.StartScreen.name
@@ -41,6 +44,7 @@ fun MobileTreasureHuntApp(
                 treasureHuntViewModel = treasureHuntViewModel,
                 onStartClick = {
                     //treasureHuntViewModel.startTimer()
+                    //treasureHuntViewModel.getNewLocation()
                     navController.navigate(MobileTreasureHuntScreens.ClueScreen.name)
                 }
 
@@ -50,12 +54,14 @@ fun MobileTreasureHuntApp(
         composable(route = MobileTreasureHuntScreens.ClueScreen.name) {
             ClueScreen (
                 treasureHuntViewModel = treasureHuntViewModel,
+                elapsedTime = elapsedTime,
                 onFoundItClick = {
                     //Check if location found, if so route to next clue or treasure hunt complete
                     val found = treasureHuntViewModel.checkLocation()
 
                     if (found) {
                         treasureHuntViewModel.pauseTimer()
+                        treasureHuntViewModel.setHint(false)
 
                         if(treasureHuntUiState.onLastClue) {
                             navController.navigate(MobileTreasureHuntScreens.TreasureHuntCompleteScreen.name)
@@ -64,7 +70,7 @@ fun MobileTreasureHuntApp(
                         }
 
                     }
-                    //Else Do nothing, directions handled in checklocation.
+                    //Else Do nothing, locations handled in checklocation.
                 },
                 onQuitClick = {
                     treasureHuntViewModel.resetGame()
@@ -76,6 +82,7 @@ fun MobileTreasureHuntApp(
         composable(route = MobileTreasureHuntScreens.ClueSolvedScreen.name) {
             ClueSolvedScreen (
                 treasureHuntViewModel = treasureHuntViewModel,
+                elapsedTime = elapsedTime,
                 onContinueClick = {
 
                     //Should have more clues unless ClueScreen logic is bad
@@ -94,6 +101,7 @@ fun MobileTreasureHuntApp(
         composable(route = MobileTreasureHuntScreens.TreasureHuntCompleteScreen.name) {
             TreasureHuntCompleteScreen(
                 treasureHuntViewModel = treasureHuntViewModel,
+                elapsedTime = elapsedTime,
                 onHomeClick = {
                     treasureHuntViewModel.resetGame()
                     navController.navigate(MobileTreasureHuntScreens.StartScreen.name)

@@ -4,11 +4,11 @@
     <string name="final_location_description">This is the Final Location Description</string>
     <string name="blank"> </string>
     <string name="clue1_location_name">Seattle Great Wheel</string>
-    <string name="clue1_location_description">This is the Clue Location Description</string>
-    <string name="clue1_location_hint">This is the Clue Hint</string>
+    <string name="clue1_location_description">Seattle Great Wheel Clue Location Description</string>
+    <string name="clue1_location_hint">Seattle Great Wheel Clue Hint</string>
     <string name="clue2_location_name">The Fremont Troll</string>
-    <string name="clue2_location_description">This is the Clue Location Description</string>
-    <string name="clue2_location_hint">This is the Clue Hint</string>
+    <string name="clue2_location_description">Fremont Troll Clue Location Description</string>
+    <string name="clue2_location_hint">Fremont Troll Clue Hint</string>
     <string name="treasure_hunt_success">Mobile Treasure Hunt Success!</string>
     <string name="lets_get_started">Lets Get Started</string>
     <string name="treasure_hunt_rules">Rules. </string>
