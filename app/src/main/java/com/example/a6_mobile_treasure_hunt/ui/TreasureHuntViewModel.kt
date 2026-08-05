@@ -157,7 +157,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun resetGame() {
-        //stopTimer()
+
         _uiState.update { currentState ->
             currentState.copy(
                 locationIndex = 0,
@@ -166,6 +166,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
                 showHint = false
             )
         }
+        stopTimer()
     }
 
     fun advanceClues() {

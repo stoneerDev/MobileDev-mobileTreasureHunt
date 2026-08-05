@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a6_mobile_treasure_hunt.R
+import com.example.a6_mobile_treasure_hunt.ui.components.Timer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -166,30 +167,7 @@ fun TreasureHuntCompleteScreen(
                 modifier = Modifier.padding(top = 16.dp),
                 text = "Total Hunting Time"
             )
-            Box(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-                    .padding(top= 1.dp, bottom = 16.dp, start= 8.dp, end = 8.dp)
-                    .border(width = 2.dp,
-                        color = Color.Black,
-                        shape = RoundedCornerShape(16.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-
-                Text(
-                    modifier = Modifier
-                        .padding(2.dp),
-                    fontSize = 24.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.Center,
-                    text = "00:00:00"
-                )
-
-
-
-
-            }
+            Timer(elapsedTime)
 
         }
 

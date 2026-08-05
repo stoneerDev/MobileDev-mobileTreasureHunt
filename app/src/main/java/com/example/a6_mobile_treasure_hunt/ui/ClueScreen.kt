@@ -34,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.a6_mobile_treasure_hunt.ui.components.LocationViewer
+import com.example.a6_mobile_treasure_hunt.ui.components.Timer
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -174,88 +176,12 @@ fun ClueScreen(
                 modifier = Modifier.padding(top = 16.dp),
                 text = "Elapsed Time"
             )
-            Box(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-                    .padding(top= 1.dp, bottom = 16.dp, start= 8.dp, end = 8.dp)
-                    .border(width = 2.dp,
-                        color = Color.Black,
-                        shape = RoundedCornerShape(16.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-
-                Text(
-                    modifier = Modifier
-                        .padding(2.dp),
-                    fontSize = 24.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.Center,
-                    text = "00:00:00"
-                )
-
-
-
-
-            }
-            if(treasureHuntUiState.permissionGranted) {
-                Text(
-                    modifier = Modifier.padding(top = 16.dp),
-                    text = "Location"
-                )
-                Box(
-                    modifier = Modifier
-                        .height(100.dp)
-                        .fillMaxWidth()
-                        .padding(top = 1.dp, bottom = 16.dp, start = 8.dp, end = 8.dp)
-                        .border(
-                            width = 2.dp,
-                            color = Color.Black,
-                            shape = RoundedCornerShape(16.dp)
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-
-                    //Null Safe location display
-                    treasureHuntUiState.currentLocation?.let {
-                        Text(
-                            modifier = Modifier
-                                .padding(2.dp),
-                            fontSize = 24.sp,
-                            lineHeight = 36.sp,
-                            textAlign = TextAlign.Center,
-                            text = "Latitude: ${treasureHuntUiState.currentLocation?.latitude}, Longitude: ${treasureHuntUiState.currentLocation?.longitude}"
-                        )
-                        Text(
-                            text = "Distance: ${treasureHuntUiState.currentDistance}"
-                        )
-
-                    } ?:
-                    Text(
-                        modifier = Modifier
-                            .padding(2.dp),
-                        fontSize = 24.sp,
-                        lineHeight = 36.sp,
-                        textAlign = TextAlign.Center,
-                        text = "Location not Loaded"
-                    )
-
-
-                }
-                //new temporary button for now to test location
-                Button(
-                    onClick = { treasureHuntViewModel.getNewLocation() }
-
-                ) {
-                    Text(
-                        text = "Location"
-                    )
-                }
-            }
-
-
-
-
+            Timer(
+                elapsedTime = elapsedTime
+            )
+            LocationViewer(
+                treasureHuntViewModel = treasureHuntViewModel
+            )
 
         }
 

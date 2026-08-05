@@ -43,8 +43,7 @@ fun MobileTreasureHuntApp(
             StartScreen(
                 treasureHuntViewModel = treasureHuntViewModel,
                 onStartClick = {
-                    //treasureHuntViewModel.startTimer()
-                    //treasureHuntViewModel.getNewLocation()
+                    treasureHuntViewModel.startTimer()
                     navController.navigate(MobileTreasureHuntScreens.ClueScreen.name)
                 }
 
@@ -73,7 +72,7 @@ fun MobileTreasureHuntApp(
                     //Else Do nothing, locations handled in checklocation.
                 },
                 onQuitClick = {
-                    treasureHuntViewModel.resetGame()
+                    //treasureHuntViewModel.resetGame()
                     navController.navigate(MobileTreasureHuntScreens.StartScreen.name)
                 }
             )
@@ -87,11 +86,12 @@ fun MobileTreasureHuntApp(
 
                     //Should have more clues unless ClueScreen logic is bad
                     treasureHuntViewModel.advanceClues()
+                    treasureHuntViewModel.startTimer()
                     navController.navigate(MobileTreasureHuntScreens.ClueScreen.name)
 
                 },
                 onQuitClick = {
-                    treasureHuntViewModel.resetGame()
+                    //treasureHuntViewModel.resetGame()
                     navController.navigate(MobileTreasureHuntScreens.StartScreen.name)
                 }
 

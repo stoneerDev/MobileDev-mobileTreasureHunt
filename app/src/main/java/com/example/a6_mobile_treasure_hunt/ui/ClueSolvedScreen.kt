@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a6_mobile_treasure_hunt.MobileTreasureHuntApp
+import com.example.a6_mobile_treasure_hunt.ui.components.Timer
 import com.example.a6_mobile_treasure_hunt.ui.theme.A6_mobile_treasure_huntTheme
 
 
@@ -77,8 +78,7 @@ fun ClueSolvedScreen(
             )
         },
         bottomBar = {
-            //Hide if Detail Already There
-            //if(currentRecommendationDetail.isBlank()) {
+
 
             Surface(
                 color = colorScheme.primaryContainer,
@@ -86,7 +86,7 @@ fun ClueSolvedScreen(
                 modifier = Modifier.fillMaxWidth().imePadding()
                     .windowInsetsPadding(WindowInsets.navigationBars)
             ) {
-                //Hide if Detail Already There
+
 
                     Row(
                         modifier = Modifier
@@ -165,42 +165,11 @@ fun ClueSolvedScreen(
 
                 )
             }
-
-
-
             Text(
                 modifier = Modifier.padding(top = 16.dp),
                 text = "Elapsed Time"
             )
-            Box(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-                    .padding(top= 1.dp, bottom = 16.dp, start= 8.dp, end = 8.dp)
-                    .border(width = 2.dp,
-                        color = colorScheme.onPrimaryContainer,
-                        shape = RoundedCornerShape(16.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-
-                Text(
-                    modifier = Modifier
-                        .padding(2.dp),
-                    fontSize = 24.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.Center,
-                    text = "00:00:00"
-                )
-
-
-
-
-            }
-
-
-
-
-
+            Timer(elapsedTime)
 
         }
 

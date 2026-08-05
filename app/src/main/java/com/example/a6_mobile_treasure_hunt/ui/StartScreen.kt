@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +46,12 @@ fun StartScreen(
 ) {
 
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
+
+    //Moved reset to launched effect here to avoid weird timer view before navigating (didn't work)
+    LaunchedEffect(Unit) {
+        treasureHuntViewModel.resetGame()
+        treasureHuntViewModel.getNewLocation()
+    }
 
     Scaffold(
         topBar = {
