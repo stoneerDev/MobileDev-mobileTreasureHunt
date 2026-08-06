@@ -10,5 +10,6 @@ data class TreasureHuntUiState(
     val locationIndex: Int = 0,
     val currentDistance: Double = Double.POSITIVE_INFINITY,
     val onLastClue: Boolean = false,
-    val showHint: Boolean = false
+    val showHint: Boolean = false,
+    val lastUpdated: Long = System.currentTimeMillis()
 )

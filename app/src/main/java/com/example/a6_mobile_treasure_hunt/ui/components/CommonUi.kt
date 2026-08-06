@@ -1,5 +1,6 @@
 package com.example.a6_mobile_treasure_hunt.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,9 +59,10 @@ fun Timer(
 //Composable to test location
 @Composable
 fun LocationViewer(
-    treasureHuntViewModel: TreasureHuntViewModel = viewModel()
+    treasureHuntViewModel: TreasureHuntViewModel
 ) {
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
+
 
     if(treasureHuntUiState.permissionGranted) {
         Text(

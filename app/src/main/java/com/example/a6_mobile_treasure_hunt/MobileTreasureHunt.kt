@@ -1,6 +1,7 @@
 package com.example.a6_mobile_treasure_hunt
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -34,6 +35,18 @@ fun MobileTreasureHuntApp(
     val navController: NavHostController = rememberNavController()
 
     val elapsedTime by treasureHuntViewModel.elapsedTime.collectAsState()
+
+    //Set up realtime location updates (REF: Google where to start location tracking in a viewmodel)
+    DisposableEffect(treasureHuntUiState.permissionGranted) {
+        if (treasureHuntUiState.permissionGranted) {
+            treasureHuntViewModel.startLocationPolling()
+        }
+
+        onDispose {
+            treasureHuntViewModel.stopLocationPolling()
+        }
+    }
+
 
     NavHost(
         navController = navController,

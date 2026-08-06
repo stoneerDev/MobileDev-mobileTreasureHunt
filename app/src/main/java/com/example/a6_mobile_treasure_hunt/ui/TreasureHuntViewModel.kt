@@ -11,7 +11,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import android.location.Location
+import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -39,8 +44,64 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
     private var timerJob: Job? = null
 
     //Location Info
+    //  REF: https://medium.com/@akshaysarapure/realtime-location-in-android-using-jetpack-compose-390411e996ea
+    //      Google Ai summaries on how to adapt this approach to a viewModel
+
+    //setup
     private val fusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
+    private var pollingStarted = false
+
+    val locationRequest = LocationRequest.Builder(2000L)
+        .setIntervalMillis(5000)
+        .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+        .build()
+
+
+    val locationCallback = object: LocationCallback() {
+        override fun onLocationResult(result: LocationResult) {
+            result.lastLocation.let {location ->
+                if(location == null){
+                    //Do Nothing
+                } else {
+
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            currentLocation = location,
+                            lastUpdated = System.currentTimeMillis())
+
+                    }
+                }
+            }
+        }
+
+    }
+
+    @SuppressLint("MissingPermission")
+    fun startLocationPolling() {
+        if (pollingStarted) {
+            return
+        }
+        else {
+            if (_uiState.value.permissionGranted) {
+                fusedLocationProviderClient.requestLocationUpdates(
+                    locationRequest, locationCallback, Looper.getMainLooper()
+                )
+                pollingStarted = true
+            }
+
+        }
+    }
+
+    fun stopLocationPolling() {
+        if (pollingStarted) {
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+            pollingStarted = false
+        }
+
+    }
+
+
 
 
     //timer functions
@@ -67,6 +128,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
     override fun onCleared() {
         super.onCleared()
         timerJob?.cancel()
+        stopLocationPolling()
     }
 
     fun updatePermissionStatus(permissionGranted: Boolean) {
