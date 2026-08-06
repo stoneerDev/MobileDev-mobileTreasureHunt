@@ -33,7 +33,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
     val uiState: StateFlow<TreasureHuntUiState> = _uiState.asStateFlow()
 
 
-    //Per research keeping separate to avoid copying the whole uiState frequently
+    //Per research keeping timer separate to avoid copying the whole uiState frequently
     private val _elapsedTime = MutableStateFlow(0L)
     val elapsedTime = _elapsedTime.asStateFlow()
     private var timerJob: Job? = null
@@ -80,6 +80,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
 
     }
 
+    //LookAt: https://medium.com/@akshaysarapure/realtime-location-in-android-using-jetpack-compose-390411e996ea
     @SuppressLint("MissingPermission")
     fun getNewLocation() {
         if (_uiState.value.permissionGranted) {
@@ -125,15 +126,24 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
 
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-        //return Miles
-        return EARTH_RADIUS_KM * c * 0.621371192
+        //return meters
+        return EARTH_RADIUS_KM * c * 1000
     }
 
 
     fun checkLocation(): Boolean {
-       //TODO
+       //getNewLocation()
+       if (_uiState.value.currentDistance < 50) {
 
-        return true
+           _uiState.update { currentState ->
+               currentState.copy(currentDistance = Double.POSITIVE_INFINITY)
+           }
+
+           return true
+
+       } else {
+           return false
+       }
     }
 
     fun toggleHint() {
