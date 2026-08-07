@@ -1,3 +1,13 @@
+/*
+    Erik Stone, stoneer@oregonstate.edu
+    CS492 Summer 2026, Oregon State University
+    Assignment 6 - Mobile Treasure Hunt
+
+    References:
+    - Assignment 5 - Building a multiscreen app II
+    - Android Location Services Codelab
+ */
+
 package com.example.a6_mobile_treasure_hunt
 
 import androidx.compose.runtime.Composable
@@ -12,12 +22,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.a6_mobile_treasure_hunt.ui.ClueScreen
 import com.example.a6_mobile_treasure_hunt.ui.ClueSolvedScreen
+import com.example.a6_mobile_treasure_hunt.ui.PermissionScreen
 import com.example.a6_mobile_treasure_hunt.ui.StartScreen
 import com.example.a6_mobile_treasure_hunt.ui.TreasureHuntCompleteScreen
 import com.example.a6_mobile_treasure_hunt.ui.TreasureHuntViewModel
 
 //Navigation Destinations
 enum class MobileTreasureHuntScreens {
+    PermissionScreen,
     StartScreen,
     ClueScreen,
     ClueSolvedScreen,
@@ -28,6 +40,7 @@ enum class MobileTreasureHuntScreens {
 @Composable
 fun MobileTreasureHuntApp(
     treasureHuntViewModel: TreasureHuntViewModel = viewModel()
+
 ) {
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -35,6 +48,7 @@ fun MobileTreasureHuntApp(
     val navController: NavHostController = rememberNavController()
 
     val elapsedTime by treasureHuntViewModel.elapsedTime.collectAsState()
+
 
     //Set up realtime location updates (REF: Google where to start location tracking in a viewmodel)
     DisposableEffect(treasureHuntUiState.permissionGranted) {
@@ -48,10 +62,20 @@ fun MobileTreasureHuntApp(
     }
 
 
+
     NavHost(
         navController = navController,
-        startDestination = MobileTreasureHuntScreens.StartScreen.name
+        startDestination = MobileTreasureHuntScreens.PermissionScreen.name
     ) {
+        composable(route = MobileTreasureHuntScreens.PermissionScreen.name) {
+            PermissionScreen(
+                treasureHuntViewModel = treasureHuntViewModel,
+                onPermissionGranted = {
+                    navController.navigate(MobileTreasureHuntScreens.StartScreen.name)
+                }
+            )
+        }
+
         composable(route = MobileTreasureHuntScreens.StartScreen.name) {
             StartScreen(
                 treasureHuntViewModel = treasureHuntViewModel,
@@ -82,7 +106,7 @@ fun MobileTreasureHuntApp(
                         }
 
                     }
-                    //Else Do nothing, locations handled in checklocation.
+                    treasureHuntViewModel.setPopup(true)
                 },
                 onQuitClick = {
                     //treasureHuntViewModel.resetGame()

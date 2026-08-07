@@ -1,3 +1,12 @@
+/*
+    Erik Stone, stoneer@oregonstate.edu
+    CS492 Summer 2026, Oregon State University
+    Assignment 6 - Mobile Treasure Hunt
+
+    References:
+    - Assignment 5 - Building a multiscreen app II
+    - Android Location Services Codelab
+ */
 package com.example.a6_mobile_treasure_hunt.ui
 
 import android.annotation.SuppressLint
@@ -13,7 +22,9 @@ import kotlinx.coroutines.flow.update
 import android.location.Location
 import android.os.Looper
 import android.util.Log
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewModelScope
+import com.example.a6_mobile_treasure_hunt.R
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -36,6 +47,35 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
 
     private val _uiState = MutableStateFlow(TreasureHuntUiState())
     val uiState: StateFlow<TreasureHuntUiState> = _uiState.asStateFlow()
+
+    //Get the lat and long values from string resources on startup (Recommended by Google)
+    init {
+        parseLatLongFromStringRes()
+    }
+
+    private fun parseLatLongFromStringRes() {
+        val currentContext = getApplication<Application>()
+
+        _uiState.update { currentState ->
+            val newLocationList = currentState.locationList.map { location ->
+                val numericLatitude = currentContext.getString(location.latitudeId).toDoubleOrNull() ?: 0.0
+                val numericLongitude = currentContext.getString(location.longitudeId).toDoubleOrNull() ?: 0.0
+
+                location.copy(
+                    latitude = numericLatitude,
+                    longitude = numericLongitude
+                )
+
+            }
+
+            currentState.copy(locationList = newLocationList)
+
+        }
+    }
+
+
+
+
 
 
     //Per research keeping timer separate to avoid copying the whole uiState frequently
@@ -111,6 +151,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
             while (true) {
                 delay(1000.milliseconds)
                 _elapsedTime.value++
+
             }
         }
     }
@@ -152,6 +193,7 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
             ).addOnSuccessListener { loc: Location? ->
                 _uiState.update { currentState ->
                     if (loc != null) {
+
                         val newHaversine = calculateHaversine(
                             startLat = loc.latitude,
                             startLong = loc.longitude,
@@ -195,11 +237,16 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
 
     fun checkLocation(): Boolean {
        //getNewLocation()
-       if (_uiState.value.currentDistance < 50) {
-
-           _uiState.update { currentState ->
-               currentState.copy(currentDistance = Double.POSITIVE_INFINITY)
-           }
+        val newHaversine = calculateHaversine(
+            startLat = _uiState.value.currentLocation?.latitude ?: 0.0,
+            startLong = _uiState.value.currentLocation?.longitude ?: 0.0,
+            endLat = _uiState.value.locationList[_uiState.value.locationIndex].latitude,
+            endLong = _uiState.value.locationList[_uiState.value.locationIndex].longitude
+        )
+        _uiState.update { currentState ->
+            currentState.copy(currentDistance = newHaversine)
+        }
+       if (newHaversine < 50) {
 
            return true
 
@@ -223,6 +270,17 @@ class TreasureHuntViewModel(application: Application) : AndroidViewModel(applica
         _uiState.update { currentState ->
             currentState.copy(
                 showHint = hintStatus
+            )
+        }
+
+    }
+
+    fun setPopup(
+        popupStatus: Boolean
+    ) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                showPopup = popupStatus
             )
         }
 

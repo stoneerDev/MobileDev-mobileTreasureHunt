@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
                 val treasureHuntViewModel: TreasureHuntViewModel = viewModel()
                 val context = LocalContext.current
 
+                /*
                 //request permission REF: Codelab, but moving location init to viewModel
                 val permissionRequest = rememberLauncherForActivityResult(
                     contract = ActivityResultContracts.RequestPermission()
@@ -70,12 +71,14 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+                */
 
 
 
 
                 MobileTreasureHuntApp(
                     treasureHuntViewModel = treasureHuntViewModel
+
                 )
             }
         }

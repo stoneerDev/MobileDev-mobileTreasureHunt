@@ -1,3 +1,12 @@
+/*
+    Erik Stone, stoneer@oregonstate.edu
+    CS492 Summer 2026, Oregon State University
+    Assignment 6 - Mobile Treasure Hunt
+
+    References:
+    - Assignment 5 - Building a multiscreen app II
+    - Android Location Services Codelab
+ */
 package com.example.a6_mobile_treasure_hunt.ui
 
 import androidx.compose.foundation.border
@@ -5,6 +14,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,9 +26,11 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -60,6 +72,7 @@ fun ClueSolvedScreen(
 ) {
 
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -126,50 +139,69 @@ fun ClueSolvedScreen(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .weight(1f)
                     //.border(width = 2.dp,
                     //    color = colorScheme.onPrimaryContainer,
                     //    shape = RoundedCornerShape(16.dp)),
-                contentAlignment = Alignment.TopCenter
+                //contentAlignment = Alignment.TopCenter
             ) {
-                Text(
+                Box(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.TopStart),
-                    fontSize = 24.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.Center,
-                    text = stringResource(
-                        treasureHuntUiState
-                            .locationList[treasureHuntUiState.locationIndex]
-                            .locationNameId
+                        .verticalScroll(scrollState),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(16.dp),
+                        //.align(Alignment.TopStart),
+                        fontSize = 24.sp,
+                        lineHeight = 36.sp,
+                        textAlign = TextAlign.Center,
+                        text = stringResource(
+                            treasureHuntUiState
+                                .locationList[treasureHuntUiState.locationIndex]
+                                .locationNameId
+                        )
+
                     )
 
-                )
+                }
 
-                Text(
+                Box(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.CenterStart),
-                    fontSize = 18.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.Start,
-                    text = stringResource(
-                        treasureHuntUiState
-                            .locationList[treasureHuntUiState.locationIndex]
-                            .locationTextId
-                    )
+                        .verticalScroll(scrollState),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(16.dp),
+                            //.align(Alignment.CenterStart)
 
-                )
+                        fontSize = 18.sp,
+                        lineHeight = 36.sp,
+                        textAlign = TextAlign.Start,
+                        text = stringResource(
+                            treasureHuntUiState
+                                .locationList[treasureHuntUiState.locationIndex]
+                                .locationTextId
+                        )
+
+                    )
+                }
             }
-            Text(
-                modifier = Modifier.padding(top = 16.dp),
-                text = "Elapsed Time"
-            )
-            Timer(elapsedTime)
+
+                Text(
+                    modifier = Modifier.padding(top = 16.dp),
+                    text = "Elapsed Time"
+                )
+                Timer(elapsedTime)
+
+
+
 
         }
 

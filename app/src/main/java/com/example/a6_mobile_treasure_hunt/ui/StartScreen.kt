@@ -1,3 +1,12 @@
+/*
+    Erik Stone, stoneer@oregonstate.edu
+    CS492 Summer 2026, Oregon State University
+    Assignment 6 - Mobile Treasure Hunt
+
+    References:
+    - Assignment 5 - Building a multiscreen app II
+    - Android Location Services Codelab
+ */
 package com.example.a6_mobile_treasure_hunt.ui
 
 import androidx.compose.foundation.border
@@ -9,11 +18,14 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -46,6 +58,7 @@ fun StartScreen(
 ) {
 
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     //Moved reset to launched effect here to avoid weird timer view before navigating (didn't work)
     LaunchedEffect(Unit) {
@@ -110,27 +123,7 @@ fun StartScreen(
             Box(
                 modifier = Modifier
                     .height(200.dp)
-                    .fillMaxWidth()
-                    .border(width = 2.dp,
-                        color = Color.Black,
-                        shape = RoundedCornerShape(16.dp)),
-                contentAlignment = Alignment.TopCenter
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(16.dp),
-                    fontSize = 24.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.Center,
-                    text = "Welcome to the Mobile Treasure Hunt"
-
-                )
-            }
-
-
-            Box(
-                modifier = Modifier
-                    .height(200.dp)
+                    .padding(10.dp)
                     .fillMaxWidth()
                     .border(width = 2.dp,
                         color = Color.Black,
@@ -141,6 +134,29 @@ fun StartScreen(
                     modifier = Modifier
                         .padding(16.dp),
                     fontSize = 24.sp,
+                    lineHeight = 36.sp,
+                    textAlign = TextAlign.Center,
+                    text = stringResource(R.string.welcome)
+
+                )
+            }
+
+
+            Box(
+                modifier = Modifier
+                    .heightIn(max = 400.dp)
+                    .padding(10.dp)
+                    .fillMaxWidth()
+                    .border(width = 2.dp,
+                        color = Color.Black,
+                        shape = RoundedCornerShape(16.dp))
+                    .verticalScroll(scrollState),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp),
+                    fontSize = 18.sp,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.Center,
                     text = stringResource(R.string.treasure_hunt_rules)

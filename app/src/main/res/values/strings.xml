@@ -1,15 +1,50 @@
 <resources>
     <string name="app_name">A6_mobile_treasure_hunt</string>
+    <string name="permissions_are_needed">Location Permissions are needed for this game. If you denied them please go to the settings menu and enable them</string>
+    <string name="current_permissions">Current Location Permissions: %1$s"</string>
+    <string name="distance_away">Sorry you are far away, keep searching\nCurrent distance: %1$.2f meters</string>
+    <string name="final_clue">CLUE:\nYou can\'t visit Seattle without seeing me. I am the most iconic landmark in the city</string>
     <string name="final_location_name">Space Needle</string>
-    <string name="final_location_description">This is the Final Location Description</string>
+    <string name="final_location_description">The Space Needle was built for the 1962 Seattle World Fair.  \n\
+        It has an observation deck at 520 feet and is one of the most popular attractions in Seattle. \n\
+    Fun facts from their website: It was built in 400 days 4.5 million dollars with the workers making an hourly wage or $3.92.\n\
+        5,600 tons of concrete were poured for its foundation, a nd it is held together with 74,000 bolts </string>
+    <string name="final_location_hint">I am surrounded by a lot of other gems like the fountain lawn and moPop museum.</string>
+    <string name="final_location_latitude">47.620505</string>
+    <string name="final_location_longitude">-122.3492767</string>
     <string name="blank"> </string>
+    <string name="welcome">Welcome to the Mobile Treasure Hunt </string>
+    <string name="clue1_text">CLUE:\nThis iconic part of the skyline is a fun ride and also a great spot to grab some fish and chips</string>
     <string name="clue1_location_name">Seattle Great Wheel</string>
-    <string name="clue1_location_description">Seattle Great Wheel Clue Location Description</string>
-    <string name="clue1_location_hint">Seattle Great Wheel Clue Hint</string>
+    <string name="clue1_location_description">The Seattle Great Wheel is a 175ft tall ferris wheel on Pier 57.\n\
+    A rather expensive ride, it does offer a nice view of downtown and Elliot Bay.  It is the tallest ferris wheel on the west coast.</string>
+    <string name="clue1_location_hint">Not as impressive as the London eye, but a big improvement over state fair versions</string>
+    <string name="clue1_latitude">47.6061001</string>
+    <string name="clue1_longitude">-122.3425001</string>
+    <string name="clue2_text">CLUE:\nI would normally grind you bones to make my bread, but in this case I smashed some cars!</string>
     <string name="clue2_location_name">The Fremont Troll</string>
-    <string name="clue2_location_description">Fremont Troll Clue Location Description</string>
-    <string name="clue2_location_hint">Fremont Troll Clue Hint</string>
+    <string name="clue2_location_description">The Fremont troll is a concrete statue under the Aurora Bridge in the Fremont neighborhood.  \
+     It includes a crushed Volkswagon Beetle and was commissioned by the city in 1989</string>
+    <string name="clue2_location_hint">Hiding under a bridge in a hip neighborhood that also includes a Lenin statue, \
+        I am a quirky addition to Seattle</string>
+    <string name="clue2_latitude">47.6510617</string>
+    <string name="clue2_longitude">-122.3474983</string>
     <string name="treasure_hunt_success">Mobile Treasure Hunt Success!</string>
+    <string name="congratulations_message">Congratulations, you completed the mobile treasure hunt of Seattle!</string>
     <string name="lets_get_started">Lets Get Started</string>
-    <string name="treasure_hunt_rules">Rules. </string>
+    <string name="requesting_permissions">Requesting Permissions</string>
+    <string name="permissions_needed">Precise Location Needed</string>
+    <string name="treasure_hunt_rules">These are the rules:\n\
+        1. When you click \'start\' the mobile treasure hunt will begin and the timer will start.\n\n\
+        2. You will be shown a clue about a place in Seattle and will have to find it.\n\n\
+        3. If you get stuck you can ask for a hint via the \'hint\' button.\n\n\
+        4. If you get close click the \'foundIt\!\' button.\n\n\
+        5. If you are too far away you keep searching notification, otherwise details about that place will be shown.\n\n\
+        6. While you read the details the timer will be paused, but when you click \'continue\' the next clue will be shown.\n\n\
+        6. At any time you can click the \'quit\' button to return to the start.\n\n\
+        7. Once you find all the clues you win the game and your overall time will be displayed.  Clicking \'home\'\
+        will restart the game.Good Luck\!</string>
+    <string name="keep_searching">Keep Searching\! distance from destination:</string>
+    <string name="pixel_2_latitude">47.6200665</string>
+    <string name="pixel_2_longitude">-122.3584927</string>
 </resources>

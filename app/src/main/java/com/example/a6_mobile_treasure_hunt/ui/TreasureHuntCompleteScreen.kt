@@ -1,3 +1,12 @@
+/*
+    Erik Stone, stoneer@oregonstate.edu
+    CS492 Summer 2026, Oregon State University
+    Assignment 6 - Mobile Treasure Hunt
+
+    References:
+    - Assignment 5 - Building a multiscreen app II
+    - Android Location Services Codelab
+ */
 package com.example.a6_mobile_treasure_hunt.ui
 
 import androidx.compose.foundation.border
@@ -13,7 +22,9 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -47,6 +58,7 @@ fun TreasureHuntCompleteScreen(
 ) {
 
     val treasureHuntUiState by treasureHuntViewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -104,11 +116,13 @@ fun TreasureHuntCompleteScreen(
         ) {
             Box(
                 modifier = Modifier
-                    .height(200.dp)
+                    .height(150.dp)
                     .fillMaxWidth()
+                    .padding(2.dp)
                     .border(width = 2.dp,
                         color = Color.Black,
-                        shape = RoundedCornerShape(16.dp)),
+                        shape = RoundedCornerShape(16.dp))
+                    .verticalScroll(scrollState),
                 contentAlignment = Alignment.TopCenter
             ) {
                 Text(
@@ -117,14 +131,15 @@ fun TreasureHuntCompleteScreen(
                     fontSize = 24.sp,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.Center,
-                    text = "Congratulations, you completed the mobile treasure hunt"
+                    text = stringResource(R.string.congratulations_message)
 
                 )
             }
             Box(
                 modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth(),
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState),
                 //.border(width = 2.dp,
                 //    color = colorScheme.onPrimaryContainer,
                 //    shape = RoundedCornerShape(16.dp)),
