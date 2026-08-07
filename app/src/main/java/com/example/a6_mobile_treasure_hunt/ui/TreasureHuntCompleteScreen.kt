@@ -135,20 +135,18 @@ fun TreasureHuntCompleteScreen(
 
                 )
             }
-            Box(
+            Column(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
                     .verticalScroll(scrollState),
-                //.border(width = 2.dp,
-                //    color = colorScheme.onPrimaryContainer,
-                //    shape = RoundedCornerShape(16.dp)),
-                contentAlignment = Alignment.TopCenter
+                horizontalAlignment = Alignment.CenterHorizontally
+
+                //contentAlignment = Alignment.TopCenter
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.TopStart),
+                        .padding(16.dp),
                     fontSize = 24.sp,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.Center,
@@ -162,8 +160,7 @@ fun TreasureHuntCompleteScreen(
 
                 Text(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.CenterStart),
+                        .padding(16.dp),
                     fontSize = 18.sp,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.Start,
